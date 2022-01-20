@@ -1,11 +1,13 @@
-FROM node:14
+FROM node:14 AS development
 
-WORKDIR /app
+WORKDIR /usr/src/app
 
-COPY package.json .
+COPY package*.json ./
 
-RUN npm install
+RUN npm install glob rimraf
 
-COPY .dist ./src
+RUN npm install --only=development
 
-CMD ["node", "src/main.js"]
+COPY . .
+
+RUN npm run build

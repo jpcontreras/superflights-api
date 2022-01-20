@@ -42,6 +42,7 @@ $ npm run test:cov
 * mongoose-autopopulate
 * class-validator
 * class-transformer
+* bcrypt
 
 ## Support
 
