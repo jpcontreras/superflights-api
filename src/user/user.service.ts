@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { IUser } from 'src/common/interfaces/user.interface';
@@ -33,5 +33,13 @@ export class UserService {
     const hash = await this.hashPassword(userDTO.password);
     const userData = { ...userDTO, password: hash };
     return await this.model.findByIdAndUpdate(id, userData, { new: true });
+  }
+
+  async destroy(id: string) {
+    this.model.findByIdAndDelete(id);
+    return {
+      status: HttpStatus.OK,
+      message: 'User Deleted',
+    };
   }
 }
